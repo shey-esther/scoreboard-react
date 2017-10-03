@@ -43,6 +43,20 @@ class Model {
     this.callback();
     this.notify();
   }
+  agregar(name) {
+    console.log(name.value);
+    if(this.input != null && this.input !=" "){
+      this.players.push({
+        name : this.input.value,
+        score : 0,
+      
+      })
+    }
+    this.callback();
+    this.notify();
+  }
+
+  
 
 }
 
@@ -93,9 +107,12 @@ let PlayerForm = React.createClass({
   render: function () {
     return (
       <div className="add-player-form">
-        <form>
-          <input type="text" />
-          <input type="submit" />
+        <form onSubmit={e => {
+          e.preventDefault();
+          model.agregar(name);
+          }}>
+          <input type="text" onChange={e=>(model.input=e.target)}/>
+          <input  type="submit" />
         </form>
       </div>
     )
