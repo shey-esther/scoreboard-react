@@ -1,6 +1,6 @@
 
-class Model  {
-  constructor ()  {
+class Model {
+  constructor() {
     this.players = [
       {
         name: "Jim Hoskins",
@@ -23,23 +23,25 @@ class Model  {
   subscribe(render) {
     this.callback = render;
   }
-  notify () {
+  notify() {
     this.callback();
   }
-  puntosTotale () {
+  puntosTotale() {
     return model.players.map((e) => e.score).reduce((a, b) => { return a + b });
     // console.log(puntosTotale);
   }
-  intergrantes () {
-   return model.players.length;
+  intergrantes() {
+    return model.players.length;
   }
-  decremento (index) {
-   return this.players[index].score--;
-    // this.callback;
+  decremento(index) {
+    this.players[index].score--;
+    this.callback();
+    this.notify();
   }
-  incremento (index) {
-   return this.players[index].score++;
-    // this.callback;
+  incremento(index) {
+    this.players[index].score++;
+    this.callback();
+    this.notify();
   }
 
 }
@@ -67,7 +69,7 @@ const Header = (props) => {
   )
 }
 
-const PlayerList = ({model}) => {
+const PlayerList = ({ model }) => {
   return (
     <div>{
       model.players.map((dato, index) => {
@@ -75,11 +77,11 @@ const PlayerList = ({model}) => {
           <div className="player">
             <div className="player-name">{dato.name}</div>
             <div className="player-score counter">
-            <button  onClick={()=>model.decremento(index)} className="counter-action decrement btn">-</button>
-            <p className="counter-score">{dato.score}</p>
-            <button onClick={()=>model.incremento(index)} className="counter-action increment btn">+</button>         
+              <button onClick={() => model.decremento(index)} className="counter-action decrement btn">-</button>
+              <p className="counter-score">{dato.score}</p>
+              <button onClick={() => model.incremento(index)} className="counter-action increment btn">+</button>
             </div>
-        </div>
+          </div>
         )
       })
     }
@@ -90,12 +92,12 @@ const PlayerList = ({model}) => {
 let PlayerForm = React.createClass({
   render: function () {
     return (
-        <div className="add-player-form">
-          <form>
-          <input type="text"/>
-          <input type="submit"/>
-          </form>
-        </div>
+      <div className="add-player-form">
+        <form>
+          <input type="text" />
+          <input type="submit" />
+        </form>
+      </div>
     )
   }
 })
@@ -113,10 +115,10 @@ const Application = ({ title, model }) => {
 let model = new Model();
 let counter = 1;
 
- let render = () => {
+let render = () => {
   ReactDOM.render(<Application title="Scoreboard" model={model} />,
-  document.getElementById('container')
+    document.getElementById('container')
   );
- };
- model.subscribe(render);
- render();
+};
+model.subscribe(render);
+render();
