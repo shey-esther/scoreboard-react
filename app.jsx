@@ -35,7 +35,7 @@ class Model  {
   }
   decremento (variable) {
     // return e ++;
-    result = variable++
+    // result = variable++
   }
   incremento () {
     
