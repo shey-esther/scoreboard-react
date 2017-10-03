@@ -33,12 +33,13 @@ class Model  {
   intergrantes () {
    return model.players.length;
   }
-  decremento (variable) {
-    // return e ++;
-    // result = variable++
+  decremento (index) {
+   return this.players[index].score--;
+    // this.callback;
   }
-  incremento () {
-    
+  incremento (index) {
+   return this.players[index].score++;
+    // this.callback;
   }
 
 }
@@ -74,9 +75,9 @@ const PlayerList = ({model}) => {
           <div className="player">
             <div className="player-name">{dato.name}</div>
             <div className="player-score counter">
-            <button  onClick= { decremento() } className="counter-action decrement btn">-</button>
+            <button  onClick={()=>model.decremento(index)} className="counter-action decrement btn">-</button>
             <p className="counter-score">{dato.score}</p>
-            <button  onClick= { incremento() } className="counter-action increment btn">+</button>         
+            <button onClick={()=>model.incremento(index)} className="counter-action increment btn">+</button>         
             </div>
         </div>
         )
